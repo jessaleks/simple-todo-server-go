@@ -29,7 +29,7 @@ func (t *Todo) GetTodos(db *gorm.DB, page int, pageSize int) ([]Todo, error) {
 		pageSize = 10
 	}
 	var todos []Todo
-	result := db.Find(&todos).Offset(page * pageSize).Limit(10)
+	result := db.Offset(page * pageSize).Limit(10).Find(&todos)
 
 	if result.Error != nil {
 		return todos, result.Error
@@ -37,12 +37,18 @@ func (t *Todo) GetTodos(db *gorm.DB, page int, pageSize int) ([]Todo, error) {
 	return todos, nil
 }
 
-func (t *Todo) UpdateTodo(db *gorm.DB) {
+func (t *Todo) UpdateTodo(db *gorm.DB) (Todo, error) {
 	var todo Todo
 	db.Save(&todo)
-	return todo
+	return todo, nil
 }
 
-func (t *Todo) DeleteTodo(db *gorm.DB) {
-	db.Delete(&t)
+func (t *Todo) DeleteTodo(db *gorm.DB) (Todo, error) {
+	var todo Todo
+	result := db.Delete(&todo)
+
+	if result.Error != nil {
+		return todo, result.Error
+	}
+	return todo, nil
 }
