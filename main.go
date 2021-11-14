@@ -2,6 +2,8 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/jessaleks/simple-todo-server-go/utils"
+	"log"
 )
 
 func main() {
@@ -9,6 +11,11 @@ func main() {
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
 
-	r.Run()
+	utils.ConnectToTheDatabase()
+
+	err := r.Run()
+	if err != nil {
+		log.Println(err)
+	}
 	println("Hello, world!")
 }

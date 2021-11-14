@@ -1,15 +1,18 @@
 package routes
 
 import (
-	"github.com/jessaleks/simple-todo-server-go/models"
+	_ "github.com/gin-gonic/gin"
+	"github.com/jessaleks/simple-todo-server-go/controllers"
 )
 
-func getTodos(c *Context) {
-	todos, err := models.Todo.GetTodos()
-	if err != nil {
-		c.JSON(500, err)
-		return
-	}
+r := gin.New()
 
-	c.JSON(200, todos)
+todoRouter := r.Group("/todos") {
+	todoRouter.GET("/", controllers.GetTodos)
+	todoRouter.GET("/:id", controllers.GetTodo)
+	todoRouter.POST("/", controllers.CreateTodo)
+	todoRouter.UPDATE("/:id", controllers.UpdateTodo)
+	todoRouter.DELETE("/:id", controllers.DeleteTodo)
 }
+
+
