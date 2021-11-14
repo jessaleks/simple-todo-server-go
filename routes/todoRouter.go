@@ -1,18 +1,19 @@
 package routes
 
 import (
-	_ "github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin"
 	"github.com/jessaleks/simple-todo-server-go/controllers"
 )
 
-r := gin.New()
+func InitializeRoutes(router *gin.Engine) *gin.Engine {
+	router.Group("/v1")
+	{
+		router.GET("todo", controllers.GetTodos)
+		router.GET("todo/:id", controllers.GetTodo)
+		router.POST("todo", controllers.CreateTodo)
+		router.PATCH("todo/:id", controllers.UpdateTodo)
+		router.DELETE("todo/:id", controllers.DeleteTodo)
 
-todoRouter := r.Group("/todos") {
-	todoRouter.GET("/", controllers.GetTodos)
-	todoRouter.GET("/:id", controllers.GetTodo)
-	todoRouter.POST("/", controllers.CreateTodo)
-	todoRouter.UPDATE("/:id", controllers.UpdateTodo)
-	todoRouter.DELETE("/:id", controllers.DeleteTodo)
+	}
+	return router
 }
-
-
