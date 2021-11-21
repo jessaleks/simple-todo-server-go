@@ -29,6 +29,9 @@ func main() {
 	// The swagger endpoint
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
+	utils.SetUpMonitoring()
+	r.GET("/metrics", utils.PrometheusHandler())
+
 	// running the app
 	err = r.Run()
 	if err != nil {
