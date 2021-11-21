@@ -1,0 +1,30 @@
+name: Build the package
+
+on:
+    push:
+        branches:
+            - master
+            - main
+            - prod
+
+jobs:
+    build:
+        runs-on: ubuntu-20.04
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/setup-go@v2
+              with:
+                  go-version: '1.17.2'
+
+            - run: |
+                  curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.26.0
+
+                golangci-lint run
+
+            - run: go build main.go
+            - uses: actions/upload-artifact@v1
+              with:
+                name: release-file
+                path: ./main
+
+
