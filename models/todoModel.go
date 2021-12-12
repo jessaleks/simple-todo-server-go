@@ -4,9 +4,15 @@ import (
 	"time"
 )
 
+// Todo struct
+// This struct models a regular Todo
 type Todo struct {
-	Id          string    `json:"id"`
-	CreatedAt   time.Time `json:"createdAt"`
+	Id string `json:"id"`
+	// CreatedAt
+	// This field is the time in the UTC
+	CreatedAt time.Time `json:"createdAt"`
+	// UpdatedAt
+	// This field is the time in the UTC
 	UpdatedAt   time.Time `json:"updatedAt"`
 	Title       string    `json:"title"`
 	Description string    `json:"description"`
