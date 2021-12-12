@@ -58,7 +58,7 @@ func GetTodo(c *gin.Context) {
 // CreateTodo POST /
 // Creates a new Todo
 func CreateTodo(c *gin.Context) {
-	var input models.TodoInput
+	var input models.Todo
 	// Checking if the input is valid
 	if err := c.ShouldBindJSON(&input); err != nil {
 		c.JSON(500, err)
