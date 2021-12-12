@@ -1,14 +1,16 @@
 package models
 
 import (
-	"gorm.io/gorm"
+	"time"
 )
 
 type Todo struct {
-	gorm.Model
-	Title       string `json:"title"`
-	Description string `json:"description"`
-	Completed   bool   `json:"completed"`
+	Id          string    `json:"id"`
+	CreatedAt   time.Time `json:"createdAt"`
+	UpdatedAt   time.Time `json:"updatedAt"`
+	Title       string    `json:"title"`
+	Description string    `json:"description"`
+	Completed   bool      `json:"completed"`
 }
 
 type TodoInput struct {
